@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * TODO: Enter file description here.
+ */
+
+
+/**
+ * Implements hook_ip2locale_info().
+ */
+function ip2locale_smart_ip_ip2locale_info() {
+  $features = array(
+    array(t('ISO2 Country Code'), t('Yes'), t('The ISO2 standard country code (2 letter)')),
+  );
+  return array(
+    '#provider' => 'smart_ip',
+    '#name' => t('Smart IP'),
+    '#url' => '',
+    '#settings_title' => 'Smart IP',
+    '#settings_description' => t('TODO'),
+    '#supported_features' => $features,
+  );
+}
+
+/**
+ * Implement hook_ip2locale_update().
+ */
+function ip2locale_smart_ip_ip2locale_update() {
+  $form = array();
+
+  $form['link'] = array(
+    '#type'          => 'item',
+    '#markup'   => t('All settings are inherited from smart_ip module. So follow this !link to configure this provider.', array('!link' => l(t('link'), 'admin/config/people/smart_ip'))),
+  );
+
+  return $form;
+}
+
+/**
+ * Implement hook_ip2locale_get_locale()
+ */
+function ip2locale_smart_ip_ip2locale_get_locale($addr) {
+  drupal_load('module', 'smart_ip');
+  include_once DRUPAL_ROOT . '/includes/file.inc';
+
+  $country =  smart_ip_get_location($addr);
+
+  $country = (object) $country;
+  if (isset($country->country_code)) {
+    $country->iso2 = $country->country_code;
+  }
+  if (isset($country->ip_address)) {
+    $country->ip = $country->ip_address;
+  }
+
+  return $country;
+}

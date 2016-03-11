@@ -1,0 +1,8 @@
+name = Ip2locale Smart Ip
+description = This is aprovider for ip2locale.
+dependencies[] = ip2locale
+dependencies[] = smart_ip
+package = Location
+core = 7.x
+
+
