@@ -1,5 +1,5 @@
-name = Ip2locale Smart Ip
-description = This is aprovider for ip2locale.
+name = Ip2locale Smart IP
+description = This is a data provider for ip2locale module.
 dependencies[] = ip2locale
 dependencies[] = smart_ip
 package = Location
